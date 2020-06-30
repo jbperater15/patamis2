@@ -132,6 +132,15 @@
                 <a href="<?php echo base_url() ?>main_controller/update_event"><button type="button" class="btn btn-primary" data-toggle="modal">
                   Launch demo link
                 </button></a>
+                  <a href="<?php echo base_url() ?>main_controller/gdrive"><button type="button" class="btn btn-primary" data-toggle="modal">
+                  Gdrive
+                </button></a>
+                <a href="<?php echo base_url() ?>Gdrive"><button type="button" class="btn btn-primary" data-toggle="modal">
+                  Google Drive v2
+                </button></a>
+                <a href="<?php echo base_url() ?>Gdrive/try"><button type="button" class="btn btn-primary" data-toggle="modal">
+                  Google Drive v2
+                </button></a>
             </div>
         </div>
 

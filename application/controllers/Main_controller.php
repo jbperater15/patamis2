@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
+		
 class Main_controller extends CI_Controller
 {
 
@@ -82,6 +82,32 @@ class Main_controller extends CI_Controller
 		$id=$this->input->get('id');
 		$this->main_model->delete_event($id);
 		redirect('main_controller/calendar_view');
+	}
+
+	function gdrive(){
+		$this->load->view('google_drive/gdrive');
+	}
+
+	function gdrive2(){
+		session_start();
+		$url_array = explode('?', 'http://'.$_SERVER ['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+		$url = $url_array[0];
+		
+		require_once (APPPATH.'libraries/google-api-php-client/src/Google_Client.php');
+		require_once (APPPATH.'libraries/google-api-php-client/src/contrib/Google_DriveService.php');
+		require_once (APPPATH.'libraries/google-api-php-client/src/contrib/Google_Oauth2Service.php');
+
+		$client = new Google_Client();
+		$client->setClientId('863284018800-kt6vu2rsmolcgri8a8f6fsjaj3a0tq68.apps.googleusercontent.com');
+		$client->setClientSecret('8sJoFcVoDyEDKjm0P8H8Jq9s');
+		$client->setRedirectUri($url);
+		$client->setScopes(array('https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/drive.file','https://www.googleapis.com/auth/drive.appdata','https://docs.google.com/feeds','https://spreadsheets.google.com/feeds'));
+		if (isset($_GET['code'])) {
+		    $_SESSION['accessToken'] = $client->authenticate($_GET['code']);
+		    header('location:'.$url);exit;
+		} elseif (!isset($_SESSION['accessToken'])) {
+		    $client->authenticate();
+		}
 	}
 
 }
